@@ -23,7 +23,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Order disini"
+            android:text="Order"
             android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="@color/teal_700"
@@ -59,7 +59,7 @@
             android:id="@+id/btnBayar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ALDI CABUL"
+            android:text="CHECKOUT"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/white"
