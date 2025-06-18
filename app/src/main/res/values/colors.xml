@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="tersedia">#4CAF50</color> <!-- Hijau -->
+    <color name="tidak_tersedia">#F44336</color> <!-- Merah -->
+    <color name="kategori_selected">#FF9800</color> <!-- warna oranye -->
+    <color name="kategori_default">#E0E0E0</color> <!-- warna abu default -->
+    <color name="kategori_text_selected">#FFFFFF</color>
+    <color name="kategori_text_default">#000000</color>
+
+        <color name="colorPrimary">#064A55</color> <!-- Warna utama -->
+        <color name="colorAccent">#03DAC5</color> <!-- Warna aksen -->
+
+
+    <color name="green">#4CAF50</color>
+
+    <color name="blue">#2196F3</color>
+    <!-- Warna untuk background -->
+    <color name="light_gray">#D3D3D3</color>
+    <!-- Warna untuk teks gelap -->
+    <color name="dark_gray">#A9A9A9</color>
+    <!-- Warna untuk teks utama -->
+    <color name="primary_color">#2196F3</color>
+    <color name="red">#FF0000</color>
+
+</resources>

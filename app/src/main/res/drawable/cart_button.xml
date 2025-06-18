@@ -1,0 +1,27 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background Shape -->
+    <item>
+        <shape
+            android:shape="oval">
+            <gradient
+                android:startColor="#FFFBFB"
+                android:endColor="#F0F0F0"
+                android:angle="135"/>
+            <stroke
+                android:color="#E0E0E0"
+                android:width="2dp"/>
+            <padding
+                android:left="5dp"
+                android:right="5dp"
+                android:top="5dp"
+                android:bottom="5dp"/>
+        </shape>
+    </item>
+
+    <!-- Cart Icon -->
+    <item android:right="5dp" android:left="5dp">
+        <bitmap
+            android:src="@drawable/ic_cart"
+        android:gravity="center"/>
+    </item>
+</layer-list>
