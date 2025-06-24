@@ -2,154 +2,329 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:background="#FAFAFA"
+    android:scrollbars="none">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:background="@android:color/white"
-        android:layout_marginTop="8dp"
-        android:clipToPadding="false"
-        android:elevation="4dp"
-        android:radius="8dp"
-        android:shadowColor="@color/black">
+        android:background="#FFFFFF">
 
-        <!-- Image Slider -->
-        <com.denzcoskun.imageslider.ImageSlider
-            android:id="@+id/imageSlider"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:adjustViewBounds="true"
-            android:layout_marginBottom="16dp"
-            android:layout_gravity="center"
-            android:radius="8dp"
-            android:shadowColor="@android:color/darker_gray" />
-
-        <!-- Merk -->
-        <TextView
-            android:id="@+id/tvDetailMerk"
+        <!-- Image Slider Container -->
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Merk Produk"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:textColor="@color/teal_700"
-            android:layout_marginTop="8dp"
-            android:gravity="start" />
+            android:layout_margin="0dp"
+          >
 
-        <!-- Harga -->
-        <TextView
-            android:id="@+id/tvDetailHarga"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Rp 0"
-            android:textColor="#FF5722"
-            android:textSize="20sp"
-            android:layout_marginTop="4dp"
-            android:gravity="start"/>
+            <com.denzcoskun.imageslider.ImageSlider
+                android:id="@+id/imageSlider"
+                android:layout_width="match_parent"
+                android:layout_height="320dp" />
+        </androidx.cardview.widget.CardView>
 
-        <!-- Ukuran -->
+        <!-- Product Info Container -->
         <LinearLayout
-            android:id="@+id/layoutUkuran"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="8dp"
-            android:gravity="center_vertical"
-            android:layout_marginBottom="12dp">
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:background="#FFFFFF">
+
+            <!-- Merk -->
+            <TextView
+                android:id="@+id/tvDetailMerk"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Merk Produk"
+                android:textStyle="bold"
+                android:textSize="24sp"
+                android:textColor="#1A1A1A"
+                android:letterSpacing="0.01"
+                android:lineSpacingExtra="2dp" />
+
+            <!-- Harga -->
+            <TextView
+                android:id="@+id/tvDetailHarga"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Rp 0"
+                android:textColor="#E53E3E"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp"
+                android:letterSpacing="0.02" />
+
+            <!-- Size Selection Title -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pilih Ukuran"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#2D3748"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="12dp" />
+
+            <!-- Ukuran -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="24dp">
+
+                <TextView
+                    android:id="@+id/btnUkuranL"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:gravity="center"
+                    android:background="@drawable/ukuran_selector"
+                    android:text="L"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="#4A5568"
+                    android:layout_marginEnd="12dp"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+                <TextView
+                    android:id="@+id/btnUkuranXL"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:gravity="center"
+                    android:background="@drawable/ukuran_selector"
+                    android:text="XL"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="#4A5568"
+                    android:layout_marginEnd="12dp"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+                <TextView
+                    android:id="@+id/btnUkuranXXL"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:gravity="center"
+                    android:background="@drawable/ukuran_selector"
+                    android:text="M"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="#4A5568"
+                    android:clickable="true"
+                    android:focusable="true" />
+            </LinearLayout>
+
+            <!-- Product Details Grid -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#F7FAFC"
+                android:padding="16dp"
+                android:layout_marginBottom="20dp">
+
+                <!-- Stok -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="8dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Stok"
+                        android:textSize="14sp"
+                        android:textColor="#718096"
+                        android:textStyle="normal" />
+
+                    <TextView
+                        android:id="@+id/tvDetailStok"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Stok"
+                        android:textSize="14sp"
+                        android:textColor="#2D3748"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <!-- Kategori -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="8dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Kategori"
+                        android:textSize="14sp"
+                        android:textColor="#718096"
+                        android:textStyle="normal" />
+
+                    <TextView
+                        android:id="@+id/tvDetailKategori"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Kategori"
+                        android:textSize="14sp"
+                        android:textColor="#2D3748"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <!-- View Count -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Dilihat"
+                        android:textSize="14sp"
+                        android:textColor="#718096"
+                        android:textStyle="normal" />
+
+                    <TextView
+                        android:id="@+id/tvDetailViewCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Dilihat: 0x"
+                        android:textSize="14sp"
+                        android:textColor="#2D3748"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Deskripsi -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Deskripsi Produk"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#2D3748"
+                android:layout_marginBottom="12dp" />
 
             <TextView
-                android:id="@+id/btnUkuranL"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:gravity="center"
-                android:background="@drawable/ukuran_selector"
-                android:text="L"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:layout_marginEnd="8dp"
-                android:elevation="4dp"/>
-
-            <TextView
-                android:id="@+id/btnUkuranXL"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:gravity="center"
-                android:background="@drawable/ukuran_selector"
-                android:text="XL"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:layout_marginEnd="8dp"
-                android:elevation="4dp"/>
-
-            <TextView
-                android:id="@+id/btnUkuranXXL"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:gravity="center"
-                android:background="@drawable/ukuran_selector"
-                android:text="M"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:elevation="4dp"/>
+                android:id="@+id/tvDetailDeskripsi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Deskripsi produk"
+                android:textSize="15sp"
+                android:textColor="#4A5568"
+                android:lineSpacingExtra="4dp"
+                android:layout_marginBottom="32dp" />
         </LinearLayout>
 
-        <!-- Stok -->
-        <TextView
-            android:id="@+id/tvDetailStok"
+        <!-- Rating Section -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Stok"
-            android:textSize="14sp"
-            android:layout_marginTop="4dp"
-            android:gravity="start" />
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:background="#FFFFFF"
+            android:layout_marginTop="8dp">
 
-        <!-- Kategori -->
-        <TextView
-            android:id="@+id/tvDetailKategori"
+            <TextView
+                android:text="Beri Rating dan Ulasan"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="#2D3748"
+                android:layout_marginBottom="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                android:numStars="5"
+                android:stepSize="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:progressTint="#FFB800"
+                android:secondaryProgressTint="#E2E8F0" />
+
+            <EditText
+                android:id="@+id/editUlasan"
+                android:hint="Tulis ulasanmu..."
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:gravity="top|start"
+                android:background="@android:drawable/edit_text"
+                android:padding="16dp"
+                android:textSize="15sp"
+                android:textColor="#2D3748"
+                android:textColorHint="#A0AEC0"
+                android:layout_marginBottom="16dp" />
+
+            <Button
+                android:id="@+id/btnKirimUlasan"
+                android:text="Kirim Ulasan"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/rounded_button"
+                android:textAllCaps="false"
+                android:layout_marginBottom="8dp" />
+        </LinearLayout>
+
+        <!-- Reviews Section -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Kategori"
-            android:textSize="14sp"
-            android:layout_marginTop="4dp"
-            android:gravity="start" />
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:background="#FFFFFF"
+            android:layout_marginTop="8dp">
 
-        <!-- View Count -->
-        <TextView
-            android:id="@+id/tvDetailViewCount"
+            <TextView
+                android:text="Ulasan Pengguna"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="#2D3748"
+                android:layout_marginBottom="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerUlasan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:layout_marginBottom="16dp" />
+        </LinearLayout>
+
+        <!-- Buy Button Container -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Dilihat: 0x"
-            android:textSize="14sp"
-            android:layout_marginTop="4dp"
-            android:gravity="start" />
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:background="#FFFFFF"
+            android:layout_marginTop="8dp">
 
-        <!-- Deskripsi -->
-        <TextView
-            android:id="@+id/tvDetailDeskripsi"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Deskripsi produk"
-            android:textSize="14sp"
-            android:layout_marginTop="8dp"
-            android:gravity="start" />
-
-        <!-- Tombol Beli -->
-        <Button
-            android:id="@+id/btnBeli"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Beli Sekarang"
-            android:textAllCaps="false"
-            android:textSize="18sp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/rounded_button"
-        android:textColor="#FFFFFF"
-        android:layout_marginBottom="16dp"
-        android:elevation="6dp"/>
-
+            <Button
+                android:id="@+id/btnBeli"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="Beli Sekarang"
+                android:textAllCaps="false"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:background="@drawable/rounded_button"
+                android:textColor="#FFFFFF"
+                android:elevation="2dp" />
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>
