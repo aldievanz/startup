@@ -117,6 +117,18 @@ public interface ApiService {
     );
     @GET("get_orders.php")
     Call<List<Order>> getOrders(@Query("email") String email);
+    @FormUrlEncoded
+    @POST("insert_review.php")
+    Call<Void> insertReview(
+            @Field("kode_produk") String kodeProduk,
+            @Field("pelanggan_id") int pelangganId,
+            @Field("rating") int rating,
+            @Field("ulasan") String ulasan
+    );
+
+
+    @GET("get_review.php")
+    Call<List<Review>> getReview(@Query("kode_produk") String kodeProduk);
 
 
 

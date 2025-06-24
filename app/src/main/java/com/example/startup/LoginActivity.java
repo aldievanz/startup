@@ -119,6 +119,7 @@ public class LoginActivity extends AppCompatActivity {
                             editor.putString("email", data.getString("email"));
                             editor.putString("nama", data.getString("nama"));
                             editor.putString("foto", data.optString("foto", ""));
+                            editor.putInt("id", data.getInt("id"));
                             editor.apply();
 
                             // Simpan profil ke SQLite lokal
@@ -132,6 +133,7 @@ public class LoginActivity extends AppCompatActivity {
                                     data.optString("telp", ""),
                                     data.optString("kodepos", ""),
                                     data.optString("foto", "")
+
                             );
 
                             dbHelper.setLoginStatus(data.getString("email"), true);

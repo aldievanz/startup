@@ -1,0 +1,123 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="20dp"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF"
+    android:layout_marginBottom="8dp"
+    android:elevation="1dp">
+
+    <!-- Header Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="12dp">
+
+        <!-- User Info Container -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtNamaPelanggan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nama Pengguna"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="#2D3748"
+                android:letterSpacing="0.01"
+                android:layout_marginBottom="2dp"/>
+
+            <TextView
+                android:id="@+id/txtTanggal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2025-06-25"
+                android:textSize="13sp"
+                android:textColor="#718096"/>
+        </LinearLayout>
+
+        <!-- Rating Display -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="#F7FAFC"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="6dp">
+
+            <TextView
+                android:id="@+id/txtRatingAngka"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rating: 5"
+                android:textSize="14sp"
+                android:textColor="#2D3748"
+                android:textStyle="bold"
+                android:layout_marginEnd="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="★"
+                android:textSize="16sp"
+                android:textColor="#FFB800"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Rating Bar Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="16dp">
+
+        <RatingBar
+            android:id="@+id/ratingBarReview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="1"
+            android:isIndicator="true"
+            android:progressTint="#FFB800"
+            android:secondaryProgressTint="#E2E8F0"
+            android:scaleX="0.8"
+            android:scaleY="0.8"
+            android:transformPivotX="0dp"
+            android:transformPivotY="0dp"/>
+    </LinearLayout>
+
+    <!-- Review Text Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#FAFAFA"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/txtUlasan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ulasan pengguna akan ditampilkan di sini."
+            android:textSize="15sp"
+            android:textColor="#4A5568"
+            android:lineSpacingExtra="4dp"
+            android:lineSpacingMultiplier="1.2"/>
+    </LinearLayout>
+
+    <!-- Subtle bottom border -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#E2E8F0"
+        android:layout_marginTop="16dp"/>
+
+</LinearLayout>

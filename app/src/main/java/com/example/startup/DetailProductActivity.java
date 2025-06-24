@@ -4,10 +4,14 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
@@ -31,10 +35,16 @@ public class DetailProductActivity extends AppCompatActivity {
     TextView tvMerk, tvHarga, tvStok, tvDeskripsi, tvKategori, tvViewCount;
     TextView btnUkuranL, btnUkuranXL, btnUkuranXXL;
     Button btnBeli;
+    RatingBar ratingBar;
+    EditText editUlasan;
+    Button btnKirimUlasan;
+    RecyclerView recyclerUlasan;
 
     Product product;
     Map<String, Integer> ukuranStokMap = new HashMap<>();
-    String selectedUkuran = "M"; // default ukuran
+    String selectedUkuran = "M";
+    String kodeProduk;
+    int pelangganId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,19 +61,27 @@ public class DetailProductActivity extends AppCompatActivity {
         btnUkuranL = findViewById(R.id.btnUkuranL);
         btnUkuranXL = findViewById(R.id.btnUkuranXL);
         btnUkuranXXL = findViewById(R.id.btnUkuranXXL);
+        ratingBar = findViewById(R.id.ratingBar);
+        editUlasan = findViewById(R.id.editUlasan);
+        btnKirimUlasan = findViewById(R.id.btnKirimUlasan);
+        recyclerUlasan = findViewById(R.id.recyclerUlasan);
+        recyclerUlasan.setLayoutManager(new LinearLayoutManager(this));
         btnBeli = findViewById(R.id.btnBeli);
 
         product = (Product) getIntent().getSerializableExtra("produk");
 
-        if (product != null) {
-            updateAndFetchView(product.getKode());
+        SharedPreferences userPrefs = getSharedPreferences("userPrefs", MODE_PRIVATE);
+        pelangganId = userPrefs.getInt("id", -1); // -1 kalau belum login
 
+        if (product != null) {
+            kodeProduk = product.getKode();
+
+            updateAndFetchView(kodeProduk);
             tvMerk.setText(product.getMerk());
             tvHarga.setText(String.format("Rp %,d", (int) product.getHargajual()));
             tvDeskripsi.setText(product.getDeskripsi());
             tvKategori.setText("Kategori: " + (product.getKategori() != null ? product.getKategori() : "-"));
 
-            // Listener untuk klik ukuran
             btnUkuranL.setOnClickListener(v -> {
                 selectedUkuran = "L";
                 highlightSelectedUkuran(btnUkuranL, btnUkuranXL, btnUkuranXXL);
@@ -77,23 +95,20 @@ public class DetailProductActivity extends AppCompatActivity {
             });
 
             btnUkuranXXL.setOnClickListener(v -> {
-                selectedUkuran = "M"; // ini "M" karena di UI kamu btnUkuranXXL textnya "M"
+                selectedUkuran = "M"; // Text "M" di button XXL
                 highlightSelectedUkuran(btnUkuranXXL, btnUkuranL, btnUkuranXL);
                 updateStokText();
             });
 
-            // Default selection: "M" di btnUkuranXXL
             selectedUkuran = "M";
             highlightSelectedUkuran(btnUkuranXXL, btnUkuranL, btnUkuranXL);
 
             btnBeli.setOnClickListener(v -> {
                 int stok = ukuranStokMap.getOrDefault(selectedUkuran, 0);
                 if (stok > 0) {
-                    SharedPreferences userPrefs = getSharedPreferences("userPrefs", MODE_PRIVATE);
                     String email = userPrefs.getString("email", "guest@example.com");
                     OrderHelper orderHelper = new OrderHelper(this, email);
                     orderHelper.addToOrder(product, selectedUkuran);
-
                     Toast.makeText(this, product.getMerk() + " ukuran " + selectedUkuran + " ditambahkan ke keranjang", Toast.LENGTH_SHORT).show();
                     finish();
                 } else {
@@ -101,8 +116,19 @@ public class DetailProductActivity extends AppCompatActivity {
                 }
             });
 
-            loadProductImages(product.getKode());
-            loadUkuranStok(product.getKode());
+            btnKirimUlasan.setOnClickListener(v -> {
+                int rating = (int) ratingBar.getRating();
+                String ulasan = editUlasan.getText().toString();
+                if (rating == 0 || ulasan.isEmpty()) {
+                    Toast.makeText(this, "Isi rating dan ulasan!", Toast.LENGTH_SHORT).show();
+                } else {
+                    kirimReview(kodeProduk, pelangganId, rating, ulasan);
+                }
+            });
+
+            loadUlasan(kodeProduk);
+            loadProductImages(kodeProduk);
+            loadUkuranStok(kodeProduk);
         }
     }
 
@@ -165,7 +191,7 @@ public class DetailProductActivity extends AppCompatActivity {
                     for (UkuranStok item : response.body()) {
                         ukuranStokMap.put(item.getUkuran(), item.getStok());
                     }
-                    updateStokText(); // update stok saat data ukuran sudah diterima
+                    updateStokText();
                 } else {
                     Toast.makeText(DetailProductActivity.this, "Gagal memuat ukuran.", Toast.LENGTH_SHORT).show();
                 }
@@ -177,4 +203,55 @@ public class DetailProductActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void loadUlasan(String kodeProduk) {
+        ApiClient.getService().getReview(kodeProduk).enqueue(new Callback<List<Review>>() {
+            @Override
+            public void onResponse(Call<List<Review>> call, Response<List<Review>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<Review> reviewList = response.body();
+                    ReviewAdapter adapter = new ReviewAdapter(reviewList);
+                    recyclerUlasan.setAdapter(adapter);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Review>> call, Throwable t) {
+                Toast.makeText(DetailProductActivity.this, "Gagal memuat ulasan", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void kirimReview(String kodeProduk, int pelangganId, int rating, String ulasan) {
+        Log.d("REVIEW_DEBUG", "kodeProduk: " + kodeProduk +
+                ", pelangganId: " + pelangganId +
+                ", rating: " + rating +
+                ", ulasan: " + ulasan);
+
+        ApiClient.getService().insertReview(product.getKode(), pelangganId, rating, ulasan)
+                .enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        if (response.isSuccessful()) {
+                            Toast.makeText(DetailProductActivity.this,
+                                    "Ulasan berhasil dikirim", Toast.LENGTH_SHORT).show();
+                            editUlasan.setText("");
+                            ratingBar.setRating(0);
+                            loadUlasan(kodeProduk);
+                        } else {
+                            Log.e("REVIEW_ERROR", "Code: " + response.code());
+                            Toast.makeText(DetailProductActivity.this,
+                                    "Gagal mengirim ulasan: " + response.code(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        Log.e("REVIEW_ERROR", "Throwable: " + t.getMessage());
+                        Toast.makeText(DetailProductActivity.this,
+                                "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
 }
